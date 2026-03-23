@@ -19,7 +19,7 @@ window.addEventListener("load", () => {
         if (tarefa) {
             tituloTarefa.innerText = "Tarefa atual: " + tarefa;
             const title=document.getElementById("titulo")
-            title=tarefa
+            title=tarefa.innerText
         } else {
             tituloTarefa.innerText = "Nenhuma tarefa definida";
         }
