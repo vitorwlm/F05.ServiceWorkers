@@ -1,27 +1,27 @@
-// scripts/dataHandle.js
+const startBtn = document.getElementById("start-btn");
+const taskInput = document.getElementById("task-input");
 
-// Lógica para a página index.html (captura do clique)
-const startbtn = document.getElementById("start-btn");
-if (startbtn) {
-    startbtn.addEventListener("click", () => {
-        const userTask = document.getElementById("task-input").value;
-        // Salva na "memória" do navegador
-        localStorage.setItem("tarefaSalva", userTask);
+if (startBtn && taskInput) {
+    startBtn.addEventListener("click", () => {
+        const userTask = taskInput.value.trim();
+        localStorage.setItem("TaskSaved", userTask);
         window.location.href = "pomodoro.html";
     });
 }
 
-// Lógica para a página pomodoro.html (exibição do título)
 window.addEventListener("load", () => {
-    const tituloTarefa = document.getElementById("titulo-tarefa");
-    if (tituloTarefa) {
-        const tarefa = localStorage.getItem("tarefaSalva");
-        if (tarefa) {
-            tituloTarefa.innerText = "Tarefa atual: " + tarefa;
-            const title=document.getElementById("titulo")
-            title=tarefa.innerText
-        } else {
-            tituloTarefa.innerText = "Nenhuma tarefa definida";
-        }
-    }
+    const task = localStorage.getItem("TaskSaved");
+    if (!task) return;
+    const title = document.createElement("h1");
+    title.textContent = task;
+    document.body.prepend(title);
+    document.title= task
 });
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("sw.js").catch((error) => {
+            console.error("[Service Worker] Registration failed:", error);
+        });
+    });
+}
