@@ -1,12 +1,157 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-PT">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Pomodoro Timer</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #f4f4f4;
+            color: #333;
+            margin: 0;
+        }
+        .container {
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #e74c3c;
+            margin-bottom: 20px;
+        }
+        #timer-display {
+            font-size: 4em;
+            margin: 20px 0;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        #controls button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            margin: 5px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        #controls button:hover:not(:disabled) {
+            background-color: #c0392b;
+        }
+        #controls button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        .settings-group {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        .settings-group label {
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        .settings-group input[type="number"] {
+            width: 80px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            text-align: center;
+        }
+        #status-message {
+            margin-top: 15px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #3498db;
+        }
+        #history-container {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 90%;
+            max-width: 500px;
+            text-align: left;
+        }
+        #history-container h2 {
+            color: #2c3e50;
+            margin-top: 0;
+            text-align: center;
+        }
+        #session-list {
+            list-style: none;
+            padding: 0;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #eee;
+            border-radius: 5px;
+            padding: 10px;
+        }
+        #session-list li {
+            background-color: #ecf0f1;
+            margin-bottom: 8px;
+            padding: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9em;
+        }
+        #session-list li:last-child {
+            margin-bottom: 0;
+        }
+        #session-list li span {
+            font-weight: bold;
+            color: #e74c3c;
+        }
+    </style>
 </head>
 <body>
-    
-    <script src="scripts/dataHandle.js"></script>
+    <div class="container">
+        <h1>Pomodoro Timer</h1>
+        <div id="status-message">Sessão de Trabalho</div>
+        <div id="timer-display">
+            <span id="minutes">25</span>:<span id="seconds">00</span>
+        </div>
+        <div id="controls">
+            <button id="start-btn">Iniciar</button>
+            <button id="pause-btn" disabled>Pausar</button>
+            <button id="reset-btn">Reiniciar</button>
+        </div>
+        <div class="settings-group">
+            <label for="pomodoro-duration">Duração Pomodoro (min):</label>
+            <input type="number" id="pomodoro-duration" value="25" min="1">
+        </div>
+        <div class="settings-group">
+            <label for="break-duration">Duração Descanso (min):</label>
+            <input type="number" id="break-duration" value="5" min="1">
+        </div>
+    </div>
+
+    <div id="history-container" class="container">
+        <h2>Histórico de Sessões</h2>
+        <ul id="session-list">
+            <!-- Session items will be inserted here by JavaScript -->
+        </ul>
+    </div>
+
+    <!-- The dataHandle.js script is already linked in the original context,
+         but for this specific page's logic, we'll use a dedicated script. -->
+    <!-- <script src="scripts/dataHandle.js"></script> -->
+    <script src="scripts/pomodoro.js"></script>
 </body>
 </html>
